@@ -16,7 +16,8 @@ public class Editor1 {
 		String action = args[1];
 		// Reads the input image and creates an empty output image
 		Color[][] imageIn = Runigram.read(fileName);	
-		Color[][] imageOut = null;	
+		Color[][] imageOut = null;
+		boolean check = false;	
 		// Applies the specified image processing function										
 		if (action.equals("fh")) {
 			imageOut = Runigram.flippedHorizontally(imageIn);
@@ -24,12 +25,19 @@ public class Editor1 {
 			imageOut = Runigram.flippedVertically(imageIn);
 		} else if (action.equals("gs")) {
 			imageOut = Runigram.grayScaled(imageIn);
+		} else if (action.equals("s")) {
+			imageOut = Runigram.scaled(imageIn, imageIn[0].length*2, imageIn.length*2);
+			check = true;
 		}
 		// Creates a canvas in which both images will be displayed, one after the other.
 		// Next, displays the input image, and pauses for a few seconds. 
 		// Finally, displays the output image.
 		// (Notice that both images have the same dimensions).
-		Runigram.setCanvas(imageIn);
+		if (check) {
+			Runigram.setCanvas(imageOut);
+		}else{
+			Runigram.setCanvas(imageIn);
+		}
 		Runigram.display(imageIn);
 		StdDraw.pause(3000); 
 		Runigram.display(imageOut);							
